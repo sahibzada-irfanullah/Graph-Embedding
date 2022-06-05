@@ -9,8 +9,6 @@ class RandomWalkEmbedding:
         self.numbOfWalksPerVertex = numbOfWalksPerVertex
         self.adj_list, self.nodeEncoder = self.graph_to_adjList(graph)
         self.totalNodes = graph.number_of_nodes()
-    #         self.nodesList = list(self.nodeEncoder.transform(list(graph.nodes)))
-    #         self.nodesList = list(graph.nodes)
 
     # encoder for nodes
     def encoder(self, graph):
@@ -21,8 +19,6 @@ class RandomWalkEmbedding:
         nodeEncoder = self.encoder(graph)
         adj_list1 = [None] * graph.number_of_nodes()
         for node, edges in list(graph.adjacency()):
-
-            #     print(node, list(edges.keys()))
             adj_list1[nodeEncoder.transform([node])[0]] = list(nodeEncoder.transform(list(edges.keys())))
         return adj_list1, nodeEncoder
 
