@@ -5,9 +5,10 @@ Generating KHop in the MapReduce Infrastructure.
 
 
 ## How to utilize a code? (Tutorial)
-#### input graph
+
 ```
-my_graph = nx.from_pandas_edgelist(edgelist, edge_attr="label")
+#### input graph
+my_graph = Your input graph goes here
 ```
 
 Where
