@@ -32,8 +32,8 @@ class DeepWalk(RandomWalkEmbedding):
             for k in range(max(0,j-self.windowSize) , min(j+self.windowSize, len(wvi))):
                 nodeFeatures = self.generateNodeFeatures(self.totalNodes, wvi, j)
 
-                out              = self.model.forward(nodeFeatures)
-                loss             = torch.log(torch.sum(torch.exp(out))) - out[wvi[k]]
+                out = self.model.forward(nodeFeatures)
+                loss = torch.log(torch.sum(torch.exp(out))) - out[wvi[k]]
                 loss.backward()
 
                 for param in self.model.parameters():
