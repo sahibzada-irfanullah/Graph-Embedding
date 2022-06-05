@@ -22,10 +22,10 @@ from plotting import plot_2DEmbedding
 #                          (17,11),(17,13)])
 
 
-# dataset = "cora"
-# data_dir = "../cora"
-dataset = "citeseer"
-data_dir = "../citeseer/"
+dataset = "cora"
+data_dir = "../cora"
+# dataset = "citeseer"
+# data_dir = "../citeseer/"
 data_dir = os.path.expanduser(data_dir)
 # print(os.path.join(data_dir, dataset + ".cites"))
 edgelist = pd.read_csv(os.path.join(data_dir, dataset + ".cites"), sep='\t', header=None, names=["target", "source"])

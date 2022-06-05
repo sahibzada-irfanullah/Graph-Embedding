@@ -58,23 +58,3 @@ class DeepWalk(RandomWalkEmbedding):
 
     def getNodeEmbedding(self, node):
         return self.model.W1[node].data
-class SkipGramModel(torch.nn.Module):
-    def __init__(self, totalNodes, embedDim):
-        super(SkipGramModel, self).__init__()
-        self.layers(totalNodes, embedDim)
-
-    def layers(self, totalNodes, embedDim):
-        if torch.cuda.is_available():
-            self.W1  = nn.Parameter(torch.rand((totalNodes, embedDim))).to("cuda")
-            self.W2 = nn.Parameter(torch.rand((embedDim, totalNodes))).to("cuda")
-            print("GPU GPU", self.W1.requires_grad, self.W2.requires_grad, self.W1.is_cuda, self.W2.is_cuda)
-
-
-    def forward(self, one_hot):
-        if torch.cuda.is_available():
-            one_hot = one_hot.to("cuda")
-            # hidden = hidden.to("cuda")
-
-        hidden = torch.matmul(one_hot, self.W1).to("cuda")
-        out    = torch.matmul(hidden, self.W2)
-        return out
