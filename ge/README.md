@@ -18,7 +18,7 @@ lr =0.025 # learning rate
 windowSize = 3 # window size
 ```
 
-#### Graph Embedding Model
+#### instantiating Graph Embedding Model
 ```
 # DeepWalk
 dw = DeepWalk(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
