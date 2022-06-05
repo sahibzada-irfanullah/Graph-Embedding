@@ -2,9 +2,12 @@
 import networkx as nx
 from skipgram import SkipGramModel
 from DeepWalk import DeepWalk
-from Node2Vec import Node2vec
+# from Node2Vec import Node2vec
 import random
-my_graph = nx.Graph()
+import os
+import networkx as nx
+import pandas as pd
+# my_graph = nx.Graph()
 
 # Add edges to to the graph object
 # Each tuple represents an edge between two nodes
@@ -17,9 +20,7 @@ my_graph = nx.Graph()
 #                          (16,14),(16,16),
 #                          (17,11),(17,13)])
 
-import os
-import networkx as nx
-import pandas as pd
+
 # dataset = "cora"
 # data_dir = "../cora"
 dataset = "citeseer"
