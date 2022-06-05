@@ -3,7 +3,12 @@ from DeepWalk import DeepWalk
 import os
 import networkx as nx
 import pandas as pd
-from plotting import plot_2DEmbedding
+
+
+import sys
+
+
+print("User Current Version:-", sys.version)
 
 dataset = "cora"
 data_dir = "../cora"
@@ -11,8 +16,9 @@ data_dir = os.path.expanduser(data_dir)
 edgelist = pd.read_csv(os.path.join(data_dir, dataset + ".cites"), sep='\t', header=None, names=["target", "source"])
 edgelist["label"] = "cites"
 
-# graph data
+# input graph
 my_graph = nx.from_pandas_edgelist(edgelist, edge_attr="label")
+
 
 embedDim = 2 # embedding size
 numbOfWalksPerVertex = 2 # walks per vertex
