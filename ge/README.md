@@ -3,9 +3,7 @@ Generating KHop in the MapReduce Infrastructure.
 # Requirement
 - Python  3.7.5
 
-
 ## How to utilize a code? (Tutorial)
-
 #### input graph
 ```
 inputGraph = Your input graph goes here
@@ -20,7 +18,6 @@ lr =0.025 # learning rate
 windowSize = 3 # window size
 ```
 
-
 #### Graph Embedding Model
 ```
 # DeepWalk
@@ -32,7 +29,6 @@ modelSkipGram = SkipGramModel(dw.totalNodes, dw.embedDim)
 # Learning Node Embedding
 model = dw.learnNodeEmbedding(modelSkipGram)
 ```
-
 
 #### Get Embedding
 ```
