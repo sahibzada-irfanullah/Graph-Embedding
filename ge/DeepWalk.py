@@ -1,6 +1,5 @@
 from RandomWalkEmbedding import RandomWalkEmbedding
 import torch
-import torch.nn as nn
 import random
 class DeepWalk(RandomWalkEmbedding):
     def __init__(self, graph, walkLength, embedDim, numbOfWalksPerVertex, windowSize, lr):
