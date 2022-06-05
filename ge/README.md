@@ -4,8 +4,8 @@ Generating KHop in the MapReduce Infrastructure.
 - Python  3.7.5
 
 
-# Run the code
-## input graph
+# How to utilize a code? (Tutorial)
+### input graph
 ```
 my_graph = nx.from_pandas_edgelist(edgelist, edge_attr="label")
 ```
