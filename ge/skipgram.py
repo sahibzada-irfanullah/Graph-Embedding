@@ -11,5 +11,5 @@ class SkipGramModel(torch.nn.Module):
 
     def forward(self, features):
         hidden = torch.matmul(features, self.W1)
-        out    = torch.matmul(hidden, self.W2)
-        return out
+        embed    = torch.matmul(hidden, self.W2)
+        return embed
