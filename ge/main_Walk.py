@@ -10,20 +10,28 @@ data_dir = "../cora"
 data_dir = os.path.expanduser(data_dir)
 edgelist = pd.read_csv(os.path.join(data_dir, dataset + ".cites"), sep='\t', header=None, names=["target", "source"])
 edgelist["label"] = "cites"
+
+# graph data
 my_graph = nx.from_pandas_edgelist(edgelist, edge_attr="label")
 
-embedDim=2         # embedding size
-numbOfWalksPerVertex = 2         # walks per vertex
-walkLength = 4
-lr =0.025
-windowSize = 3
+embedDim = 2 # embedding size
+numbOfWalksPerVertex = 2 # walks per vertex
+walkLength = 4 # walk lenght
+lr =0.025 # learning rate
+windowSize = 3 # window size
 
+
+# DeepWalk
 dw = DeepWalk(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
               windowSize=windowSize, lr = lr)
-
+# Skip Gram model
 model_skip_gram = SkipGramModel(dw.totalNodes, dw.embedDim)
-# model = dw.learnEdgeEmbedding(model_skip_gram)
+
+# Learning Node Embedding
 model = dw.learnNodeEmbedding(model_skip_gram)
+
+# Plot Embedding
 plot_2DEmbedding(dw)
-print(dw.getEdgeEmbedding(10, 11))
+
+# Get Embedding for a simple node
 print(dw.getNodeEmbedding(10))
