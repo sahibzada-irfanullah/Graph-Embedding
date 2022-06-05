@@ -7,6 +7,7 @@ import random
 import os
 import networkx as nx
 import pandas as pd
+from plotting import plot_2DEmbedding
 # my_graph = nx.Graph()
 
 # Add edges to to the graph object
@@ -39,24 +40,15 @@ lr =0.025
 windowSize = 3
 
 # dw = Struc2Vec(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, windowSize = 3, lr = lr)
-# dw = DeepWalk(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
-#               windowSize=windowSize, lr = lr)
+dw = DeepWalk(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
+              windowSize=windowSize, lr = lr)
 
-dw = Node2vec(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
-              windowSize=windowSize, lr=lr, p = 0.5, q = 0.8)
+# dw = Node2vec(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
+#               windowSize=windowSize, lr=lr, p = 0.5, q = 0.8)
 
 model_skip_gram = SkipGramModel(dw.totalNodes, dw.embedDim)
 # model = dw.learnEdgeEmbedding(model_skip_gram)
 model = dw.learnNodeEmbedding(model_skip_gram)
+plot_2DEmbedding(dw)
 print(dw.getEdgeEmbedding(10, 11))
 print(dw.getNodeEmbedding(10))
-def plot_2DEmbedding(dw):
-    import matplotlib.pyplot as plt
-    xs = dw.model.W1.data[:, 0]
-    ys = dw.model.W1.data[:, 1]
-    ls = list(range(0, len(xs)))
-    plt.scatter(xs, ys)
-    for x,y,l in zip(xs,ys, ls):
-        plt.annotate(str(int(dw.nodeEncoder.inverse_transform([l]))), (x, y))
-    plt.show()
-plot_2DEmbedding(dw)
