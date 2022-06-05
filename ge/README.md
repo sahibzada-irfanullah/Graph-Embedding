@@ -34,3 +34,9 @@ model = dw.learnNodeEmbedding(modelSkipGram)
 ```
 
 
+#### Get Embedding
+```
+nodeID = 10
+dw.getNodeEmbedding(nodeID)
+```
+
