@@ -1,4 +1,4 @@
-from struc2vec import Struc2Vec
+# from struc2vec import Struc2Vec
 import networkx as nx
 from skipgram import SkipGramModel
 from DeepWalk import DeepWalk
