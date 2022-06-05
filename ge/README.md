@@ -27,10 +27,10 @@ windowSize = 3 # window size
 dw = DeepWalk(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
               windowSize=windowSize, lr = lr)
 # Skip Gram model
-model_skip_gram = SkipGramModel(dw.totalNodes, dw.embedDim)
+modelSkipGram = SkipGramModel(dw.totalNodes, dw.embedDim)
 
 # Learning Node Embedding
-model = dw.learnNodeEmbedding(model_skip_gram)
+model = dw.learnNodeEmbedding(modelSkipGram)
 ```
 
 
