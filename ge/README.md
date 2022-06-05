@@ -6,19 +6,31 @@ Generating KHop in the MapReduce Infrastructure.
 
 ## How to utilize a code? (Tutorial)
 
-```
 #### input graph
-my_graph = Your input graph goes here
+```
+inputGraph = Your input graph goes here
 ```
 
-Where
-- Khop: required khop number
-- path/inputgraph: hdfs path to the input graph
-- path/khop: hdfs path to the output
+#### Configurable Parameter for Graph Embedding
+```
+embedDim = 2 # embedding size
+numbOfWalksPerVertex = 2 # walks per vertex
+walkLength = 4 # walk lenght
+lr =0.025 # learning rate
+windowSize = 3 # window size
+```
 
-# Output:
-After running the code successfully, all the generated khops will be stored in "/khop" on hdfs as:
 
-NodeID_KHop.txt
+#### Graph Embedding Model
+```
+# DeepWalk
+dw = DeepWalk(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
+              windowSize=windowSize, lr = lr)
+# Skip Gram model
+model_skip_gram = SkipGramModel(dw.totalNodes, dw.embedDim)
 
-Provided for academic use only
+# Learning Node Embedding
+model = dw.learnNodeEmbedding(model_skip_gram)
+```
+
+
