@@ -20,10 +20,8 @@ class DeepWalk(RandomWalkEmbedding):
         return walk
 
     def generateNodeFeatures(self, totalNodes, wvi, j):
-        #generate one hot vector
-        nodeFeatures          = torch.zeros(totalNodes)
-        #                 print(one_hot)
-        nodeFeatures[wvi[j]]  = 1
+        nodeFeatures = torch.zeros(totalNodes)
+        nodeFeatures[wvi[j]] = 1
         return nodeFeatures
 
 
@@ -31,11 +29,9 @@ class DeepWalk(RandomWalkEmbedding):
         for j in range(len(wvi)):
             for k in range(max(0,j-self.windowSize) , min(j+self.windowSize, len(wvi))):
                 nodeFeatures = self.generateNodeFeatures(self.totalNodes, wvi, j)
-
                 out = self.model.forward(nodeFeatures)
                 loss = torch.log(torch.sum(torch.exp(out))) - out[wvi[k]]
                 loss.backward()
-
                 for param in self.model.parameters():
                     param.data.sub_(self.lr*param.grad)
                     param.grad.data.zero_()
