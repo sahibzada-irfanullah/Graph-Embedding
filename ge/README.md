@@ -1,9 +1,15 @@
 # Graph Embedding
-Generating KHop in the MapReduce Infrastructure.
-# Requirement
-- Python  3.7.5
+### Introduction
+This module provides the services and implementation for the following 
+family of graph embedding algorithms.
+- DeepWalk
+- Node2Vecf
+- Struc2Vec
+- GNN
 
-## How to utilize a code? (Tutorial)
+
+
+### How to utilize a code? (Tutorial)
 #### input graph
 ```
 inputGraph = Your input graph goes here
