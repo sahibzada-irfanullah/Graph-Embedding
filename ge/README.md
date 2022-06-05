@@ -30,7 +30,7 @@ modelSkipGram = SkipGramModel(dw.totalNodes, dw.embedDim)
 model = dw.learnNodeEmbedding(modelSkipGram)
 ```
 
-#### Get Embedding
+#### Get Embedding Agaist Node
 ```
 nodeID = 10
 dw.getNodeEmbedding(nodeID)
