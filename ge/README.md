@@ -1,12 +1,7 @@
 # Graph Embedding
 ### Introduction
-This module provides the services and implementation for the following 
+This module provides the services and implementation for various
 family of graph embedding algorithms.
-- DeepWalk
-- Node2Vecf
-- Struc2Vec
-- GNN
-
 
 
 ### How to utilize a code? (Tutorial)
