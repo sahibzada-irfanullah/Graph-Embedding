@@ -49,6 +49,7 @@ class Node2vec(RandomWalkEmbedding):
             probs = self.computeProbabilities((self.nodeEncoder.inverse_transform([walk[-2]])[0]))
             probabilities = probs[(self.nodeEncoder.inverse_transform([walk[-2]])[0])] \
                 ['probabilities'][(self.nodeEncoder.inverse_transform([walk[-1]])[0])]
+            # Traverse a vertex from a neighbors of node 'node"
             nextStep = np.random.choice(walkOptions, p=probabilities)
             walk.append(int(self.nodeEncoder.transform([nextStep])))
         return walk

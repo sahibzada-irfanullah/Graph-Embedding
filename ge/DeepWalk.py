@@ -16,6 +16,7 @@ class DeepWalk(RandomWalkEmbedding):
         walk = [int(self.nodeEncoder.transform([node]))]        # Walk starts from node "node"
         for i in range(t-1):
             neighborsList = [n for n in self.graph.neighbors(node)]
+            # Randomly traverse a vertex from a neighbors of node 'node"
             node = neighborsList[random.randint(0,len(neighborsList)-1)]
             walk.append(int(self.nodeEncoder.transform([node])))
         return walk
