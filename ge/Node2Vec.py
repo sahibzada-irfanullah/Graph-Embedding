@@ -21,18 +21,16 @@ class Node2vec(RandomWalkEmbedding):
         for current_node in self.graph.neighbors(source_node):
             probs_ = list()
             for destination in self.graph.neighbors(current_node):
-
                 if source_node == destination:
                     prob_ = self.graph[current_node][destination].get('weight',1) * (1/self.p)
                 elif destination in self.graph.neighbors(source_node):
                     prob_ = self.graph[current_node][destination].get('weight',1)
                 else:
                     prob_ = self.graph[current_node][destination].get('weight',1) * (1/self.q)
-
                 probs_.append(prob_)
-
             probs[source_node]['probabilities'][current_node] = probs_/np.sum(probs_)
         return probs
+
     # Walks generation
     def RandomWalk(self, startNode, walkLength):
         # walk contains encoded node labels
