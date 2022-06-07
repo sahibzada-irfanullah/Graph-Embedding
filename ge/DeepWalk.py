@@ -50,7 +50,7 @@ class DeepWalk(RandomWalkEmbedding):
             random.shuffle(nodesList)
             # Generating walk for a vertex
             for vi in nodesList:
-                wvi= self.RandomWalk(vi, self.walkLength)
+                wvi = self.RandomWalk(vi, self.walkLength)
                 self.model = self.learnEmbedding(self.model, wvi)
         return self.model
 
