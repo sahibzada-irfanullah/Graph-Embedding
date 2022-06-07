@@ -10,8 +10,9 @@ class DeepWalk(RandomWalkEmbedding):
         self.lr = lr
         self.model = None
 
-    # Walks generation for deepwalk method
+    # Walks generation
     def RandomWalk(self, node,t):
+        # walk contains encoded node labels
         walk = [int(self.nodeEncoder.transform([node]))]        # Walk starts from node "node"
         for i in range(t-1):
             neighborsList = [n for n in self.graph.neighbors(node)]
@@ -56,7 +57,7 @@ class DeepWalk(RandomWalkEmbedding):
     def getNodeEmbedding(self, node):
         return self.model.W1[node].data
 
-    # Initiate Training
+    # Training edge embedding model
     def learnEdgeEmbedding(self, model):
         self.model = model
         for startNode in list(self.graph.nodes):
@@ -66,6 +67,7 @@ class DeepWalk(RandomWalkEmbedding):
                 walkStartNode = self.RandomWalk(startNode, self.walkLength)
                 self.model = self.learnEmbedding(walkStartNode)
         return self.model
+
     # Get edge embedding for a specific edge having source node, i.e., "srcNode" and destination node, i.e., dstNode
     def getEdgeEmbedding(self, srcNode, dstNode):
         return self.operator_hadamard(self.getNodeEmbedding(srcNode), self.getNodeEmbedding(dstNode))

@@ -33,7 +33,7 @@ class Node2vec(RandomWalkEmbedding):
 
             probs[source_node]['probabilities'][current_node] = probs_/np.sum(probs_)
         return probs
-    # Walks generation for deepwalk method
+    # Walks generation
     def RandomWalk(self, startNode, walkLength):
         # walk contains encoded node labels
         walk = [int(self.nodeEncoder.transform([startNode]))]
@@ -53,11 +53,13 @@ class Node2vec(RandomWalkEmbedding):
             walk.append(int(self.nodeEncoder.transform([nextStep])))
         return walk
 
+    # Generate features for nodes
     def generateNodeFeatures(self, totalNodes, wvi, j):
         nodeFeatures = torch.zeros(totalNodes)
         nodeFeatures[wvi[j]] = 1
         return nodeFeatures
 
+    # Training graph embedding model
     def learnEmbedding(self, model, wvi):
         for j in range(len(wvi)):
             for k in range(max(0,j-self.windowSize) , min(j+self.windowSize, len(wvi))):
@@ -71,9 +73,11 @@ class Node2vec(RandomWalkEmbedding):
                     param.grad.data.zero_()
         return self.model
 
+    # Get node embedding for a specific node, i.e., "node"
     def getNodeEmbedding(self, node):
         return self.model.W1[node].data
 
+    # Training node embedding model
     def learnNodeEmbedding(self, model):
         self.model = model
         for startNode in list(self.graph.nodes):
@@ -82,6 +86,7 @@ class Node2vec(RandomWalkEmbedding):
                 self.model = self.learnEmbedding(self.model, walkStartNode)
         return self.model
 
+    # Training edge embedding model
     def learnEdgeEmbedding(self, model):
         self.model = model
         for startNode in list(self.graph.nodes):
@@ -90,6 +95,7 @@ class Node2vec(RandomWalkEmbedding):
                 self.model = self.learnEmbedding(self.model, walkStartNode)
         return self.model
 
+    # Get edge embedding for a specific edge having source node, i.e., "srcNode" and destination node, i.e., dstNode
     def getEdgeEmbedding(self, srcNode, dstNode):
         return self.operator_hadamard(self.getNodeEmbedding(srcNode), self.getNodeEmbedding(dstNode))
 
