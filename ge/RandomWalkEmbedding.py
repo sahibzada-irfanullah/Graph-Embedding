@@ -1,7 +1,6 @@
 from abc import abstractmethod
 from sklearn import preprocessing
 class RandomWalkEmbedding:
-
     # Constructor
     def __init__(self, graph, walkLength, embedDim, numbOfWalksPerVertex):
         self.graph = graph

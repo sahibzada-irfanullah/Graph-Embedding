@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 class SkipGramModel(torch.nn.Module):
-
     # Constructor
     def __init__(self, totalNodes, embedDim):
         super(SkipGramModel, self).__init__()
