@@ -4,6 +4,7 @@ import numpy as np
 from collections import defaultdict
 
 class Node2vec(RandomWalkEmbedding):
+    # Constructor
     def __init__(self, graph, walkLength, embedDim, numbOfWalksPerVertex, windowSize, lr, p, q):
         super(Node2vec, self).__init__(graph, walkLength, embedDim, numbOfWalksPerVertex)
         self.walkLength = walkLength
@@ -13,6 +14,7 @@ class Node2vec(RandomWalkEmbedding):
         self.p = p
         self.q = q
 
+    # Calculating Probabilities for traversing a node
     def computeProbabilities(self, source_node):
         probs = defaultdict(dict)
         probs[source_node]['probabilities'] = dict()
@@ -31,7 +33,7 @@ class Node2vec(RandomWalkEmbedding):
 
             probs[source_node]['probabilities'][current_node] = probs_/np.sum(probs_)
         return probs
-
+    # Walks generation for deepwalk method
     def RandomWalk(self, startNode, walkLength):
         # walk contains encoded node labels
         walk = [int(self.nodeEncoder.transform([startNode]))]

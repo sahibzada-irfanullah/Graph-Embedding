@@ -6,5 +6,5 @@ def plot_2DEmbedding(dw):
     ls = list(range(0, len(xs)))
     plt.scatter(xs, ys)
     for x,y,l in zip(xs,ys, ls):
-        plt.annotate(str(int(dw.nodeEncoder.inverse_transform([l]))), (x, y))
+        plt.annotate((dw.nodeEncoder.inverse_transform([l])[0]), (x, y))
     plt.show()

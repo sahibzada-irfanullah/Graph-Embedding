@@ -20,11 +20,11 @@ edgelist["label"] = "cites"
 my_graph = nx.from_pandas_edgelist(edgelist, edge_attr="label")
 
 
-embedDim = 2 # embedding size
-numbOfWalksPerVertex = 2 # walks per vertex
-walkLength = 4 # walk lenght
+embedDim = 20 # embedding size
+numbOfWalksPerVertex = 12 # walks per vertex
+walkLength = 14 # walk lenght
 lr =0.025 # learning rate
-windowSize = 3 # window size
+windowSize = 5 # window size
 
 
 # DeepWalk
