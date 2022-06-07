@@ -1,7 +1,7 @@
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 from sklearn import preprocessing
 class RandomWalkEmbedding:
-    # constructor
+    # Constructor
     def __init__(self, graph, walkLength, embedDim, numbOfWalksPerVertex):
         self.graph = graph
         self.walkLength = walkLength
@@ -10,7 +10,7 @@ class RandomWalkEmbedding:
         self.adj_list, self.nodeEncoder = self.graph_to_adjList(graph)
         self.totalNodes = graph.number_of_nodes()
 
-    # encoder for nodes
+    # Encoder for nodes
     def encoder(self, graph):
         nodeEncoder = preprocessing.LabelEncoder()
         return nodeEncoder.fit(list(graph.nodes()))
