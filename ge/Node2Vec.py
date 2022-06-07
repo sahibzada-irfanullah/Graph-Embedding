@@ -51,6 +51,10 @@ class Node2vec(RandomWalkEmbedding):
             walk.append(int(self.nodeEncoder.transform([nextStep])))
         return walk
 
+    def generateNodeFeatures(self, totalNodes, wvi, j):
+        nodeFeatures = torch.zeros(totalNodes)
+        nodeFeatures[wvi[j]] = 1
+        return nodeFeatures
 
     def learnEmbedding(self, model, wvi):
         for j in range(len(wvi)):
