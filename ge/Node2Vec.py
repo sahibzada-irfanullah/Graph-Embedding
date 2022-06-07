@@ -69,24 +69,23 @@ class Node2vec(RandomWalkEmbedding):
                     param.grad.data.zero_()
         return self.model
 
+    def getNodeEmbedding(self, node):
+        return self.model.W1[node].data
+
     def learnNodeEmbedding(self, model):
         self.model = model
         for startNode in list(self.graph.nodes):
             for i in range(self.numbOfWalksPerVertex):
                 walkStartNode = self.RandomWalk(startNode, self.walkLength)
-                self.model = self.learnEmbedding(walkStartNode)
+                self.model = self.learnEmbedding(self.model, walkStartNode)
         return self.model
-
-    def getNodeEmbedding(self, node):
-        return self.model.W1[int(self.nodeEncoder.transform([node]))].data
-
 
     def learnEdgeEmbedding(self, model):
         self.model = model
         for startNode in list(self.graph.nodes):
             for i in range(self.numbOfWalksPerVertex):
                 walkStartNode = self.RandomWalk(startNode, self.walkLength)
-                self.model = self.learnEmbedding(walkStartNode)
+                self.model = self.learnEmbedding(self.model, walkStartNode)
         return self.model
 
     def getEdgeEmbedding(self, srcNode, dstNode):
