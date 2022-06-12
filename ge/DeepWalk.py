@@ -1,6 +1,7 @@
 from RandomWalkEmbedding import RandomWalkEmbedding
 import torch
 import random
+from utils import operator_hadamard
 class DeepWalk(RandomWalkEmbedding):
     # constructor
     def __init__(self, graph, walkLength, embedDim, numbOfWalksPerVertex, windowSize, lr):
@@ -71,7 +72,5 @@ class DeepWalk(RandomWalkEmbedding):
 
     # Get edge embedding for a specific edge having source node, i.e., "srcNode" and destination node, i.e., dstNode
     def getEdgeEmbedding(self, srcNode, dstNode):
-        return self.operator_hadamard(self.getNodeEmbedding(srcNode), self.getNodeEmbedding(dstNode))
-
-    def operator_hadamard(self, u, v):
-        return u * v
+        # Operator_hadamrd defined in Utils
+        return operator_hadamard(self.getNodeEmbedding(srcNode), self.getNodeEmbedding(dstNode))

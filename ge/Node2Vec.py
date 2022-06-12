@@ -96,8 +96,8 @@ class Node2vec(RandomWalkEmbedding):
 
     # Get edge embedding for a specific edge having source node, i.e., "srcNode" and destination node, i.e., dstNode
     def getEdgeEmbedding(self, srcNode, dstNode):
-        return self.operator_hadamard(self.getNodeEmbedding(srcNode), self.getNodeEmbedding(dstNode))
+        # Operator_hadamrd defined in Utils
+        return operator_hadamard(self.getNodeEmbedding(srcNode), self.getNodeEmbedding(dstNode))
 
-    def operator_hadamard(self, u, v):
-        return u * v
+
 
