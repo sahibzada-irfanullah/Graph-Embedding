@@ -52,11 +52,6 @@ def partition_dict(vertices, workers):
     return part_list
 
 def create_alias_table(area_ratio):
-    """
-
-    :param area_ratio: sum(area_ratio)=1
-    :return: accept,alias
-    """
     l = len(area_ratio)
     accept, alias = [0] * l, [0] * l
     small, large = [], []
@@ -110,12 +105,6 @@ def cost_max(a, b):
 
 
 def convert_dtw_struc_dist(distances, startLayer=1):
-    """
-
-    :param distances: dict of dict
-    :param startLayer:
-    :return:
-    """
     for vertices, layers in distances.items():
         keys_layers = sorted(layers.keys())
         startLayer = min(len(keys_layers), startLayer)
@@ -194,7 +183,6 @@ def verifyDegrees(degrees, degree_v_root, degree_a, degree_b):
         degree_now = degree_a
 
     return degree_now
-
 
 def compute_dtw_dist(part_list, degreeList, dist_func):
     dtw_dist = {}
