@@ -8,9 +8,9 @@ from joblib import Parallel, delayed
 from sklearn import preprocessing
 from utils import partition_dict, preprocess_nxgraph, get_vertices, create_alias_table, cost, cost_max, \
     cost_min, compute_dtw_dist, convert_dtw_struc_dist
-from BiasedRandomWalk import BiasedWalker
+from biasedRandomWalk import BiasedWalker
 import torch
-from RandomWalkEmbedding import RandomWalkEmbedding
+from randomWalkEmbedding import RandomWalkEmbedding
 
 
 class Struc2Vec(RandomWalkEmbedding):
@@ -42,8 +42,6 @@ class Struc2Vec(RandomWalkEmbedding):
         self.create_context_graph(self.opt3_num_layers, workers, verbose)
         self.prepare_biased_walk()
         self.walker = BiasedWalker(self.nodeEncoder.classes_, self.temp_path)
-
-
         self._embeddings = {}
 
     # Walks generation
@@ -53,20 +51,21 @@ class Struc2Vec(RandomWalkEmbedding):
             startNode, walkLength, self.stay_prob, 1, self.verbose)
         return list(self.nodeEncoder.transform(walk[0]))
 
+    # Generate features for nodes
+    def generateNodeFeatures(self, totalNodes, wvi, j):
+        nodeFeatures = torch.zeros(totalNodes)
+        nodeFeatures[wvi[j]] = 1
+        return nodeFeatures
+
     # Training graph embedding model
-    def learnEmbedding(self, walk):
-        for j in range(len(walk)):
-            for k in range(max(0,j-self.windowSize) , min(j+self.windowSize, len(walk))):
-
-                #generate one hot vector
-                nodeFeatures          = torch.zeros(self.totalNodes)
-                #                 print(one_hot)
-                nodeFeatures[walk[j]] = 1
-
+    def learnEmbedding(self, model, wvi):
+        for j in range(len(wvi)):
+            for k in range(max(0,j-self.windowSize) , min(j+self.windowSize, len(wvi))):
+                # generate features
+                nodeFeatures = self.generateNodeFeatures(self.totalNodes, wvi, j)
                 out = self.model.forward(nodeFeatures)
-                loss = torch.log(torch.sum(torch.exp(out))) - out[walk[k]]
+                loss = torch.log(torch.sum(torch.exp(out))) - out[wvi[k]]
                 loss.backward()
-
                 for param in self.model.parameters():
                     param.data.sub_(self.lr*param.grad)
                     param.grad.data.zero_()
@@ -78,7 +77,7 @@ class Struc2Vec(RandomWalkEmbedding):
         for startNode in list(self.graph.nodes):
             for i in range(self.numbOfWalksPerVertex):
                 walkStartNode = self.RandomWalk(startNode, self.walkLength)
-                self.model = self.learnEmbedding(walkStartNode)
+                self.model = self.learnEmbedding(self.model, walkStartNode)
         return self.model
 
     # Get node embedding for a specific node, i.e., "node"
@@ -91,7 +90,7 @@ class Struc2Vec(RandomWalkEmbedding):
         for startNode in list(self.graph.nodes):
             for i in range(self.numbOfWalksPerVertex):
                 walkStartNode = self.RandomWalk(startNode, self.walkLength)
-                self.model = self.learnEmbedding(walkStartNode)
+                self.model = self.learnEmbedding(self.model, walkStartNode)
         return self.model
 
     # Get edge embedding for a specific edge having source node, i.e., "srcNode" and destination node, i.e., dstNode

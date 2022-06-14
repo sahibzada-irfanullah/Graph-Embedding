@@ -1,7 +1,8 @@
 from skipgram import SkipGramModel
-from DeepWalk import DeepWalk
+from deepWalk import DeepWalk
 from plotting import plot_2DEmbedding
-from Node2Vec import Node2vec
+from node2vec import Node2vec
+from struc2vec import Struc2Vec
 import os
 import networkx as nx
 import pandas as pd
@@ -40,8 +41,8 @@ windowSize = 3 # window size
 # dw = DeepWalk(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
 #               windowSize=windowSize, lr = lr)
 
-dw = Node2vec(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
-              windowSize=windowSize, lr=lr, p = 0.5, q = 0.8)
+dw = Struc2Vec(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
+              windowSize=windowSize, lr=lr)
 
 # Skip Gram model
 model_skip_gram = SkipGramModel(dw.totalNodes, dw.embedDim)

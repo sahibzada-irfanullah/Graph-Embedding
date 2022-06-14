@@ -1,4 +1,4 @@
-from RandomWalkEmbedding import RandomWalkEmbedding
+from randomWalkEmbedding import RandomWalkEmbedding
 import torch
 import random
 from utils import operator_hadamard
