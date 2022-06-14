@@ -46,19 +46,6 @@ class Struc2Vec(RandomWalkEmbedding):
 
         self._embeddings = {}
 
-    def encoder(self, graph):
-        nodeEncoder = preprocessing.LabelEncoder()
-        return nodeEncoder.fit(list(graph.nodes()))
-
-    def graph_to_adjList(self, graph):
-        nodeEncoder = self.encoder(graph)
-        adj_list1 = [None] * graph.number_of_nodes()
-        for node, edges in list(graph.adjacency()):
-
-            #     print(node, list(edges.keys()))
-            adj_list1[nodeEncoder.transform([node])[0]] = list(nodeEncoder.transform(list(edges.keys())))
-        return adj_list1, nodeEncoder
-
     # Walks generation
     def RandomWalk(self, startNode, walkLength):
         startNode = int(self.nodeEncoder.transform([startNode]))
