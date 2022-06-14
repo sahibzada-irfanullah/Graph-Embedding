@@ -1,7 +1,6 @@
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 from sklearn import preprocessing
 class RandomWalkEmbedding:
-    # Constructor
     def __init__(self, graph, walkLength, embedDim, numbOfWalksPerVertex):
         self.graph = graph
         self.walkLength = walkLength
@@ -9,8 +8,10 @@ class RandomWalkEmbedding:
         self.numbOfWalksPerVertex = numbOfWalksPerVertex
         self.adj_list, self.nodeEncoder = self.graph_to_adjList(graph)
         self.totalNodes = graph.number_of_nodes()
+    #         self.nodesList = list(self.nodeEncoder.transform(list(graph.nodes)))
+    #         self.nodesList = list(graph.nodes)
 
-    # Encoder for nodes
+
     def encoder(self, graph):
         nodeEncoder = preprocessing.LabelEncoder()
         return nodeEncoder.fit(list(graph.nodes()))
@@ -19,6 +20,8 @@ class RandomWalkEmbedding:
         nodeEncoder = self.encoder(graph)
         adj_list1 = [None] * graph.number_of_nodes()
         for node, edges in list(graph.adjacency()):
+
+            #     print(node, list(edges.keys()))
             adj_list1[nodeEncoder.transform([node])[0]] = list(nodeEncoder.transform(list(edges.keys())))
         return adj_list1, nodeEncoder
 
@@ -41,6 +44,7 @@ class RandomWalkEmbedding:
     def learnNodeEmbedding(self):
         pass
 
+
     @abstractmethod
     def getNodeEmbedding(self):
         pass
@@ -48,6 +52,7 @@ class RandomWalkEmbedding:
     @abstractmethod
     def learnEdgeEmbedding(self):
         pass
+
 
     @abstractmethod
     def getEdgeEmbedding(self):
