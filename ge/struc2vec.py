@@ -14,6 +14,7 @@ from RandomWalkEmbedding import RandomWalkEmbedding
 
 
 class Struc2Vec(RandomWalkEmbedding):
+    # Constructor
     def __init__(self, graph, walkLength, embedDim, numbOfWalksPerVertex, windowSize, lr= 0.03, verbose=0, stay_prob=0.3, opt1_reduce_len=True, opt2_reduce_sim_calc=True, opt3_num_layers=None, temp_path='./temp_struc2vec/', reuse=False):
         super(Struc2Vec, self).__init__(graph, walkLength, embedDim, numbOfWalksPerVertex)
         self.idx2node, self.node2idx = preprocess_nxgraph(graph)
@@ -58,12 +59,14 @@ class Struc2Vec(RandomWalkEmbedding):
             adj_list1[nodeEncoder.transform([node])[0]] = list(nodeEncoder.transform(list(edges.keys())))
         return adj_list1, nodeEncoder
 
+    # Walks generation
     def RandomWalk(self, startNode, walkLength):
         startNode = int(self.nodeEncoder.transform([startNode]))
         walk = self.walker. simulate_walks(
             startNode, walkLength, self.stay_prob, 1, self.verbose)
         return list(self.nodeEncoder.transform(walk[0]))
 
+    # Training graph embedding model
     def learnEmbedding(self, walk):
         for j in range(len(walk)):
             for k in range(max(0,j-self.windowSize) , min(j+self.windowSize, len(walk))):
@@ -81,6 +84,8 @@ class Struc2Vec(RandomWalkEmbedding):
                     param.data.sub_(self.lr*param.grad)
                     param.grad.data.zero_()
         return self.model
+
+    # Training node embedding model
     def learnNodeEmbedding(self, model):
         self.model = model
         for startNode in list(self.graph.nodes):
@@ -89,9 +94,11 @@ class Struc2Vec(RandomWalkEmbedding):
                 self.model = self.learnEmbedding(walkStartNode)
         return self.model
 
+    # Get node embedding for a specific node, i.e., "node"
     def getNodeEmbedding(self, node):
         return self.model.W1[int(self.nodeEncoder.transform([node]))].data
 
+    # Training graph embedding model
     def learnEdgeEmbedding(self, model):
         self.model = model
         for startNode in list(self.graph.nodes):
@@ -100,12 +107,11 @@ class Struc2Vec(RandomWalkEmbedding):
                 self.model = self.learnEmbedding(walkStartNode)
         return self.model
 
+    # Get edge embedding for a specific edge having source node, i.e., "srcNode" and destination node, i.e., dstNode
     def getEdgeEmbedding(self, srcNode, dstNode):
         return self.operator_hadamard(self.getNodeEmbedding(srcNode), self.getNodeEmbedding(dstNode))
 
-    def operator_hadamard(self, u, v):
-        return u * v
-
+    # Create a context graph
     def create_context_graph(self, max_num_layers, workers=1, verbose=0,):
 
         pair_distances = self._compute_structural_distance(
@@ -354,126 +360,3 @@ class Struc2Vec(RandomWalkEmbedding):
             layers_accept[layer] = node_accept_dict
 
         return layers_accept, layers_alias
-
-#
-# def cost(a, b):
-#     ep = 0.5
-#     m = max(a, b) + ep
-#     mi = min(a, b) + ep
-#     return ((m / mi) - 1)
-#
-#
-# def cost_min(a, b):
-#     ep = 0.5
-#     m = max(a[0], b[0]) + ep
-#     mi = min(a[0], b[0]) + ep
-#     return ((m / mi) - 1) * min(a[1], b[1])
-#
-#
-# def cost_max(a, b):
-#     ep = 0.5
-#     m = max(a[0], b[0]) + ep
-#     mi = min(a[0], b[0]) + ep
-#     return ((m / mi) - 1) * max(a[1], b[1])
-#
-#
-# def convert_dtw_struc_dist(distances, startLayer=1):
-#     """
-#
-#     :param distances: dict of dict
-#     :param startLayer:
-#     :return:
-#     """
-#     for vertices, layers in distances.items():
-#         keys_layers = sorted(layers.keys())
-#         startLayer = min(len(keys_layers), startLayer)
-#         for layer in range(0, startLayer):
-#             keys_layers.pop(0)
-#
-#         for layer in keys_layers:
-#             layers[layer] += layers[layer - 1]
-#     return distances
-#
-#
-# def get_vertices(v, degree_v, degrees, n_nodes):
-#     a_vertices_selected = 2 * math.log(n_nodes, 2)
-#     vertices = []
-#     try:
-#         c_v = 0
-#
-#         for v2 in degrees[degree_v]['vertices']:
-#             if (v != v2):
-#                 vertices.append(v2)  # same degree
-#                 c_v += 1
-#                 if (c_v > a_vertices_selected):
-#                     raise StopIteration
-#
-#         if ('before' not in degrees[degree_v]):
-#             degree_b = -1
-#         else:
-#             degree_b = degrees[degree_v]['before']
-#         if ('after' not in degrees[degree_v]):
-#             degree_a = -1
-#         else:
-#             degree_a = degrees[degree_v]['after']
-#         if (degree_b == -1 and degree_a == -1):
-#             raise StopIteration  # not anymore v
-#         degree_now = verifyDegrees(degrees, degree_v, degree_a, degree_b)
-#         # nearest valid degree
-#         while True:
-#             for v2 in degrees[degree_now]['vertices']:
-#                 if (v != v2):
-#                     vertices.append(v2)
-#                     c_v += 1
-#                     if (c_v > a_vertices_selected):
-#                         raise StopIteration
-#
-#             if (degree_now == degree_b):
-#                 if ('before' not in degrees[degree_b]):
-#                     degree_b = -1
-#                 else:
-#                     degree_b = degrees[degree_b]['before']
-#             else:
-#                 if ('after' not in degrees[degree_a]):
-#                     degree_a = -1
-#                 else:
-#                     degree_a = degrees[degree_a]['after']
-#
-#             if (degree_b == -1 and degree_a == -1):
-#                 raise StopIteration
-#
-#             degree_now = verifyDegrees(degrees, degree_v, degree_a, degree_b)
-#
-#     except StopIteration:
-#         return list(vertices)
-#
-#     return list(vertices)
-#
-#
-# def verifyDegrees(degrees, degree_v_root, degree_a, degree_b):
-#
-#     if(degree_b == -1):
-#         degree_now = degree_a
-#     elif(degree_a == -1):
-#         degree_now = degree_b
-#     elif(abs(degree_b - degree_v_root) < abs(degree_a - degree_v_root)):
-#         degree_now = degree_b
-#     else:
-#         degree_now = degree_a
-#
-#     return degree_now
-#
-#
-# def compute_dtw_dist(part_list, degreeList, dist_func):
-#     dtw_dist = {}
-#     for v1, nbs in part_list:
-#         lists_v1 = degreeList[v1]  # lists_v1 :orderd degree list of v1
-#         for v2 in nbs:
-#             lists_v2 = degreeList[v2]  # lists_v1 :orderd degree list of v2
-#             max_layer = min(len(lists_v1), len(lists_v2))  # valid layer
-#             dtw_dist[v1, v2] = {}
-#             for layer in range(0, max_layer):
-#                 dist, path = fastdtw(
-#                     lists_v1[layer], lists_v2[layer], radius=1, dist=dist_func)
-#                 dtw_dist[v1, v2][layer] = dist
-#     return dtw_dist
