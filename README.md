@@ -7,7 +7,19 @@ family of graph embedding algorithms.
 ### How to utilize a code? (Tutorial)
 #### input graph
 ```
-inputGraph = Your input graph goes here
+# inputGraph = Your input graph goes here
+# For example,
+# Set Path to data
+dataset = "cora"
+dataset = "cora - Copy"
+data_dir = "../cora"
+
+# Load Data
+data_dir = os.path.expanduser(data_dir)
+edgelist = pd.read_csv(os.path.join(data_dir, dataset + ".cites"), sep='\t', header=None, names=["target", "source"])
+
+# input graph
+my_graph = nx.from_pandas_edgelist(edgelist)
 ```
 
 #### Configurable Parameter for Graph Embedding
