@@ -61,7 +61,7 @@ model = dw.learnEdgeEmbedding(model_skip_gram)
 # Plot Embedding
 plot_2DEmbedding(dw)
 
-# Save embedding to disc
+# Save embedding to disk
 saveEmbedding(data_dir, dataset, dw)
 
 node1 = 35
