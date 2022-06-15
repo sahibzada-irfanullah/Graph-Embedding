@@ -9,7 +9,7 @@ from struc2vec import Struc2Vec
 from utils import saveEmbedding
 
 # Set Path to data
-dataset = "cora - Copy"
+dataset = "cora"
 data_dir = "../cora"
 
 # Load Data

@@ -210,7 +210,7 @@ def plot_2DEmbedding(dw):
         plt.annotate((dw.nodeEncoder.inverse_transform([l])[0]), (x, y))
     plt.show()
 
-# Prepare features against each node and
+# Save embedding to disk
 def saveEmbedding(data_dir, dataset, dw):
     embCol = list()
     for i in range(dw.embedDim):
