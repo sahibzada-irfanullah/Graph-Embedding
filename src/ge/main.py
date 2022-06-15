@@ -10,6 +10,7 @@ from utils import saveEmbedding
 
 # Set Path to data
 dataset = "cora"
+dataset = "cora - Copy"
 data_dir = "../cora"
 
 # Load Data
@@ -28,8 +29,8 @@ windowSize = 3 # window size
 
 
 # DeepWalk
-dw = DeepWalk(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
-              windowSize=windowSize, lr = lr)
+# dw = DeepWalk(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
+#               windowSize=windowSize, lr = lr)
 
 
 # Node2Vec
@@ -37,8 +38,8 @@ dw = DeepWalk(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPer
 #               windowSize=windowSize, lr=lr, p = 0.5, q = 0.8)
 
 # Struc2Vec
-# dw = Struc2Vec(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
-#               windowSize=windowSize, lr = lr)
+dw = Struc2Vec(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
+              windowSize=windowSize, lr = lr)
 
 
 # Skip Gram model
@@ -48,7 +49,7 @@ model_skip_gram = SkipGramModel(dw.totalNodes, dw.embedDim)
 model = dw.learnNodeEmbedding(model_skip_gram)
 
 # # Learning Node Embedding
-model = dw.learnEdgeEmbedding(model_skip_gram)
+# model = dw.learnEdgeEmbedding(model_skip_gram)
 
 # Plot Embedding
 plot_2DEmbedding(dw)
