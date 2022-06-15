@@ -43,7 +43,7 @@ modelSkipGram = SkipGramModel(dw.totalNodes, dw.embedDim)
 model = dw.learnNodeEmbedding(modelSkipGram)
 
 
-# Learning Node Embedding
+# Learning Edge Embedding
 model = dw.learnEdgeEmbedding(model_skip_gram)
 
 # Plot Embedding
