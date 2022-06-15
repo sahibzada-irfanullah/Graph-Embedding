@@ -5,9 +5,8 @@ import numpy as np
 import pandas as pd
 from gensim.models import Word2Vec
 from joblib import Parallel, delayed
-from sklearn import preprocessing
 from utils import partition_dict, preprocess_nxgraph, get_vertices, create_alias_table, cost, cost_max, \
-    cost_min, compute_dtw_dist, convert_dtw_struc_dist
+    cost_min, compute_dtw_dist, convert_dtw_struc_dist, operator_hadamard
 from biasedRandomWalk import BiasedWalker
 import torch
 from randomWalkEmbedding import RandomWalkEmbedding
@@ -95,7 +94,7 @@ class Struc2Vec(RandomWalkEmbedding):
 
     # Get edge embedding for a specific edge having source node, i.e., "srcNode" and destination node, i.e., dstNode
     def getEdgeEmbedding(self, srcNode, dstNode):
-        return self.operator_hadamard(self.getNodeEmbedding(srcNode), self.getNodeEmbedding(dstNode))
+        return operator_hadamard(self.getNodeEmbedding(srcNode), self.getNodeEmbedding(dstNode))
 
     # Create a context graph
     def create_context_graph(self, max_num_layers, workers=1, verbose=0,):

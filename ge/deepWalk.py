@@ -29,7 +29,7 @@ class DeepWalk(RandomWalkEmbedding):
         return nodeFeatures
 
     # Training graph embedding model
-    def learnEmbedding(self, model, wvi):
+    def learnEmbedding(self, wvi):
         for j in range(len(wvi)):
             for k in range(max(0,j-self.windowSize) , min(j+self.windowSize, len(wvi))):
                 # Getting node for a specific features
@@ -51,13 +51,13 @@ class DeepWalk(RandomWalkEmbedding):
             random.shuffle(nodesList)
             # Generating walk for a vertex
             for vi in nodesList:
-                wvi = self.RandomWalk(vi, self.walkLength)
-                self.model = self.learnEmbedding(self.model, wvi)
+                walkStartNode = self.RandomWalk(vi, self.walkLength)
+                self.model = self.learnEmbedding(walkStartNode)
         return self.model
 
     # Get node embedding for a specific node, i.e., "node"
     def getNodeEmbedding(self, node):
-        return self.model.W1[node].data
+        return self.model.W1[int(self.nodeEncoder.transform([node]))].data
 
     # Training edge embedding model
     def learnEdgeEmbedding(self, model):

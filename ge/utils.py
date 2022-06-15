@@ -1,7 +1,8 @@
-
+import pandas as pd
 import numpy as np
 import math
 from fastdtw import fastdtw
+import matplotlib.pyplot as plt
 def chooseNeighbor(v, graphs, layers_alias, layers_accept, layer):
 
     v_list = graphs[layer][v]
@@ -13,7 +14,6 @@ def chooseNeighbor(v, graphs, layers_alias, layers_accept, layer):
 
 def alias_sample(accept, alias):
     """
-
     :param accept:
     :param alias:
     :return: sample index
@@ -198,5 +198,27 @@ def compute_dtw_dist(part_list, degreeList, dist_func):
                 dtw_dist[v1, v2][layer] = dist
     return dtw_dist
 
-def operator_hadamard(self, u, v):
+def operator_hadamard(u, v):
     return u * v
+
+def plot_2DEmbedding(dw):
+    xs = dw.model.W1.data[:, 0]
+    ys = dw.model.W1.data[:, 1]
+    ls = list(range(0, len(xs)))
+    plt.scatter(xs, ys)
+    for x,y,l in zip(xs,ys, ls):
+        plt.annotate((dw.nodeEncoder.inverse_transform([l])[0]), (x, y))
+    plt.show()
+
+# Prepare features against each node and
+def saveEmbedding(data_dir, dataset, dw):
+    embCol = list()
+    for i in range(dw.embedDim):
+        embCol.append('c' + str(i))
+    df = pd.DataFrame(columns = embCol,
+                      index = list(dw.graph.nodes())) # adding nodes as an index
+    for node in dw.graph.nodes():
+        # Get embedding for a node
+        f = dw.getNodeEmbedding(node)
+        df.loc[node] = f
+        df.to_csv("{}{}.embedding".format(data_dir + "/", dataset), sep='\t', header=False)

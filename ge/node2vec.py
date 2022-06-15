@@ -2,6 +2,7 @@ from randomWalkEmbedding import RandomWalkEmbedding
 import torch
 import numpy as np
 from collections import defaultdict
+from utils import operator_hadamard
 
 class Node2vec(RandomWalkEmbedding):
     # Constructor
@@ -74,7 +75,7 @@ class Node2vec(RandomWalkEmbedding):
 
     # Get node embedding for a specific node, i.e., "node"
     def getNodeEmbedding(self, node):
-        return self.model.W1[node].data
+        return self.model.W1[int(self.nodeEncoder.transform([node]))].data
 
     # Training node embedding model
     def learnNodeEmbedding(self, model):
