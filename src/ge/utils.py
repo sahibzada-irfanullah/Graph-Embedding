@@ -3,6 +3,8 @@ import numpy as np
 import math
 from fastdtw import fastdtw
 import matplotlib.pyplot as plt
+import os
+import networkx as nx
 def chooseNeighbor(v, graphs, layers_alias, layers_accept, layer):
 
     v_list = graphs[layer][v]
@@ -222,3 +224,9 @@ def saveEmbedding(data_dir, dataset, dw):
         f = dw.getNodeEmbedding(node)
         df.loc[node] = f
         df.to_csv("{}{}.embedding".format(data_dir + "/", dataset), sep='\t', header=False)
+
+def loadGraph(data_dir, dataset):
+    # Load Data
+    data_dir = os.path.expanduser(data_dir)
+    edgelist = pd.read_csv(os.path.join(data_dir, dataset + ".cites"), sep='\t', header=None, names=["target", "source"])
+    return nx.from_pandas_edgelist(edgelist)

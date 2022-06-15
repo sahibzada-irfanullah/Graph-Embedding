@@ -1,12 +1,13 @@
-import os
-import networkx as nx
-import pandas as pd
+
+
+
 from skipgram import SkipGramModel
-from deepWalk import DeepWalk
+
 from utils import plot_2DEmbedding
 from node2vec import Node2vec
 from struc2vec import Struc2Vec
-from utils import saveEmbedding
+from deepWalk import DeepWalk
+from utils import saveEmbedding, loadGraph
 
 # Set Path to data
 dataset = "cora"
@@ -14,12 +15,12 @@ dataset = "cora - Copy"
 data_dir = "../cora"
 
 # Load Data
-data_dir = os.path.expanduser(data_dir)
-edgelist = pd.read_csv(os.path.join(data_dir, dataset + ".cites"), sep='\t', header=None, names=["target", "source"])
-
-# input graph
-my_graph = nx.from_pandas_edgelist(edgelist)
-
+# data_dir = os.path.expanduser(data_dir)
+# edgelist = pd.read_csv(os.path.join(data_dir, dataset + ".cites"), sep='\t', header=None, names=["target", "source"])
+#
+# # input graph
+# my_graph = nx.from_pandas_edgelist(edgelist)
+my_graph = loadGraph(data_dir, dataset)
 # Set Parameters
 embedDim = 2 # embedding size
 numbOfWalksPerVertex = 2 # walks per vertex
@@ -34,12 +35,12 @@ windowSize = 3 # window size
 
 
 # Node2Vec
-# dw = Node2vec(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
-#               windowSize=windowSize, lr=lr, p = 0.5, q = 0.8)
+dw = Node2vec(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
+              windowSize=windowSize, lr=lr, p = 0.5, q = 0.8)
 
 # Struc2Vec
-dw = Struc2Vec(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
-              windowSize=windowSize, lr = lr)
+# dw = Struc2Vec(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
+#               windowSize=windowSize, lr = lr)
 
 
 # Skip Gram model
@@ -48,8 +49,8 @@ model_skip_gram = SkipGramModel(dw.totalNodes, dw.embedDim)
 # Learning Node Embedding
 model = dw.learnNodeEmbedding(model_skip_gram)
 
-# # Learning Edge Embedding
-# model = dw.learnEdgeEmbedding(model_skip_gram)
+# Learning Edge Embedding
+model = dw.learnEdgeEmbedding(model_skip_gram)
 
 # Plot Embedding
 plot_2DEmbedding(dw)
