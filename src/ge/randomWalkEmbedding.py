@@ -1,15 +1,45 @@
 from abc import ABC, abstractmethod
 from sklearn import preprocessing
+import warnings
+from utils import custom_formatwarning
+
 class RandomWalkEmbedding:
-    def __init__(self, graph, walkLength, embedDim, numbOfWalksPerVertex):
+    def __init__(self, graph, walkLength, embedDim, numbOfWalksPerVertex, windowSize, lr):
         self.graph = graph
-        self.walkLength = walkLength
-        self.embedDim = embedDim
-        self.numbOfWalksPerVertex = numbOfWalksPerVertex
+        # validate arguments
+        if walkLength == 0:
+            self.walkLength = 3
+            warnings.warn("Set Walk to default: {}".format(self.walkLength))
+        else:
+            self.walkLength = walkLength
+
+        if embedDim == 0:
+            self.embedDim = 2
+            warnings.warn("Set Embedding Dimention to default: {}".format(self.embedDim))
+        else:
+            self.embedDim = embedDim
+
+        if numbOfWalksPerVertex == 3:
+            self.numbOfWalksPerVertex = 3
+            warnings.warn("Setting Learning Rate to default: {}".format(self.numbOfWalksPerVertex))
+        else:
+            self.numbOfWalksPerVertex = numbOfWalksPerVertex
+
+        if windowSize == 0:
+            self.windowSize = 3
+            warnings.warn("Set Context Window to default: {}".format(self.windowSize))
+        else:
+            self.windowSize = windowSize
+
+        if lr == 0:
+            self.lr = 0.25
+            warnings.warn("Set Learning Rate to default: {}".format(self.lr))
+        else:
+            self.lr = lr
         self.adj_list, self.nodeEncoder = self.graph_to_adjList(graph)
         self.totalNodes = graph.number_of_nodes()
-    #         self.nodesList = list(self.nodeEncoder.transform(list(graph.nodes)))
-    #         self.nodesList = list(graph.nodes)
+
+
 
 
     def encoder(self, graph):

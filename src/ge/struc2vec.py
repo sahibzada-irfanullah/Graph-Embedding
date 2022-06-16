@@ -5,22 +5,39 @@ import numpy as np
 import pandas as pd
 from gensim.models import Word2Vec
 from joblib import Parallel, delayed
-from utils import partition_dict, preprocess_nxgraph, get_vertices, create_alias_table, cost, cost_max, \
-    cost_min, compute_dtw_dist, convert_dtw_struc_dist, operator_hadamard
-from biasedRandomWalk import BiasedWalker
 import torch
-from randomWalkEmbedding import RandomWalkEmbedding
-
+import warnings
+import sys
+try:
+    from utils import partition_dict, preprocess_nxgraph, get_vertices, create_alias_table, cost, cost_max, \
+        compute_dtw_dist, convert_dtw_struc_dist, operator_hadamard, custom_formatwarning
+    from biasedRandomWalk import BiasedWalker
+    from randomWalkEmbedding import RandomWalkEmbedding
+except ModuleNotFoundError:
+    from .utils import partition_dict, preprocess_nxgraph, get_vertices, create_alias_table, cost, cost_max, \
+        compute_dtw_dist, convert_dtw_struc_dist, operator_hadamard, custom_formatwarning
+    from .biasedRandomWalk import BiasedWalker
+    from .randomWalkEmbedding import RandomWalkEmbedding
 
 class Struc2Vec(RandomWalkEmbedding):
     # Constructor
-    def __init__(self, graph, walkLength, embedDim, numbOfWalksPerVertex, windowSize, lr= 0.03, verbose=0, stay_prob=0.3, opt1_reduce_len=True, opt2_reduce_sim_calc=True, opt3_num_layers=None, temp_path='./temp_struc2vec/', reuse=False):
-        super(Struc2Vec, self).__init__(graph, walkLength, embedDim, numbOfWalksPerVertex)
-        self.idx2node, self.node2idx = preprocess_nxgraph(graph)
-        self.stay_prob = stay_prob
+    def __init__(self, graph = None, walkLength = 0, embedDim = 0, numbOfWalksPerVertex = 0, \
+                 windowSize = 0, lr= 0, verbose=0, stay_prob=0, opt1_reduce_len=True, opt2_reduce_sim_calc=True, \
+                 opt3_num_layers=None, temp_path='./temp_struc2vec/', reuse=False):
+        if graph is None:
+            warnings.warn("Provide a graph: {}".format(graph))
+            sys.exit()
+
+        super(Struc2Vec, self).__init__(graph, walkLength, embedDim, numbOfWalksPerVertex,  windowSize, lr)
+        # validate arguments
+        if stay_prob == 0:
+            self.stay_prob = 0.3
+            warnings.warn("Set stay prob. to default: {}".format(self.stay_prob))
+        else:
+            self.stay_prob = stay_prob
         self.verbose = verbose
-        self.lr = lr
-        self.windowSize = windowSize
+        self.idx2node, self.node2idx = preprocess_nxgraph(graph)
+
         self.adj_list, self.nodeEncoder = self.graph_to_adjList(graph)
         self.idx = list(range(len(self.nodeEncoder.classes_)))
 

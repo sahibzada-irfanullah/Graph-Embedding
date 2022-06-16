@@ -1,14 +1,23 @@
-from randomWalkEmbedding import RandomWalkEmbedding
 import torch
 import random
-from utils import operator_hadamard
+import warnings
+import sys
+
+try:
+    from utils import operator_hadamard, custom_formatwarning
+    from randomWalkEmbedding import RandomWalkEmbedding
+except ModuleNotFoundError:
+    from .utils import operator_hadamard, custom_formatwarning
+    from .randomWalkEmbedding import RandomWalkEmbedding
+
 class DeepWalk(RandomWalkEmbedding):
     # constructor
-    def __init__(self, graph, walkLength, embedDim, numbOfWalksPerVertex, windowSize, lr):
-        super(DeepWalk, self).__init__(graph, walkLength, embedDim, numbOfWalksPerVertex)
-        self.walkLength = walkLength
-        self.windowSize = windowSize
-        self.lr = lr
+    def __init__(self, graph = None, walkLength = 0, embedDim = 0, numbOfWalksPerVertex = 0, \
+                 windowSize = 0, lr = 0):
+        if graph is None:
+            warnings.warn("Provide a graph: {}".format(graph))
+            sys.exit()
+        super(DeepWalk, self).__init__(graph, walkLength, embedDim, numbOfWalksPerVertex,  windowSize, lr)
         self.model = None
 
     # Walks generation
