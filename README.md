@@ -74,11 +74,11 @@ model = rw.learnEdgeEmbedding(modelSkipGram)
 ge.plot_2DEmbedding(rw)
 ```
 
-##### Save Embedding to Disk
+#### Save Embedding to Disk
 ```
 ge.saveEmbedding(data_dir, dataset, rw)
 ```
-##### Generate  Embedding for a Specific Node or Edge
+#### Generate  Embedding for a Specific Node or Edge
 ```
 node1 = 35
 node2 = 40
