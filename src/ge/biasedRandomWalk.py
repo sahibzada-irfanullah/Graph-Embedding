@@ -1,7 +1,12 @@
 import pandas as pd
 import random
 import math
-from utils import chooseNeighbor
+
+try:
+    from utils import chooseNeighbor
+except ModuleNotFoundError:
+    from .utils import chooseNeighbor
+
 class BiasedWalker:
     def __init__(self, idx2node, temp_path):
 

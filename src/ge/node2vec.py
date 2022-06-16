@@ -116,3 +116,6 @@ class Node2vec(RandomWalkEmbedding):
     def getEdgeEmbedding(self, srcNode, dstNode):
         # Operator_hadamrd defined in Utils
         return operator_hadamard(self.getNodeEmbedding(srcNode), self.getNodeEmbedding(dstNode))
+
+
+

@@ -1,7 +1,10 @@
 from abc import ABC, abstractmethod
 from sklearn import preprocessing
 import warnings
-from utils import custom_formatwarning
+try:
+    from utils import custom_formatwarning
+except ModuleNotFoundError:
+    from .utils import custom_formatwarning
 
 class RandomWalkEmbedding:
     def __init__(self, graph, walkLength, embedDim, numbOfWalksPerVertex, windowSize, lr):

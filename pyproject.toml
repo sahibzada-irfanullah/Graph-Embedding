@@ -9,7 +9,7 @@ name = "dgllge"
 version = "1.0.0"
 description = "Read the latest Real Python tutorials"
 readme = "README.md"
-authors = [{ name = "Real Python", email = "info@realpython.com" }]
+authors = [{ name = "Irfan Ullah", email = "irfan@khu.ac.kr" }]
 license = { file = "LICENSE" }
 classifiers = [
     "License :: OSI Approved :: MIT License",
