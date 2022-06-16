@@ -88,8 +88,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 * [Data and Knowlege Engineering Lab (DKE)](http://dke.khu.ac.kr/)
-* [Distributed Graph Learning Library (DGLL)]()
-
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Links
