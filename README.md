@@ -34,45 +34,59 @@ lr =0.025 # learning rate
 windowSize = 3 # window size
 ```
 
-#### instantiating Graph Embedding Model
+#### Choose One of the Following Graph Embedding Models
 ```
-# choose of the following Graph embedding algorithm
 # DeepWalk
 rw = ge.DeepWalk(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
               windowSize=windowSize, lr = lr)
               
-              
+ ```
+```
 # Node2Vec
 rw = ge.Node2vec(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
                windowSize=windowSize, lr=lr, p = 0.5, q = 0.8)
-
+```
+```
 # Struc2Vec
 rw = ge.Struc2Vec(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
               windowSize=windowSize, lr = lr)
+```
               
-# Skip Gram model
+##### Skip Gram model
+```
 modelSkipGram = ge.SkipGramModel(rw.totalNodes, rw.embedDim)
-
-# Choose whether want Node embedding or edge embedding
+```
+##### Want Node Embedding or Edge Embedding
+```
 # Learning Node Embedding
 model = rw.learnNodeEmbedding(modelSkipGram)
+```
 
 
+```
 # Learning Edge Embedding
 model = rw.learnEdgeEmbedding(modelSkipGram)
+```
 
-# Plot Embedding
+
+##### Plot Embedding
+```
 ge.plot_2DEmbedding(rw)
+```
 
-# Save embedding to disk
+##### Save Embedding to Disk
+```
 ge.saveEmbedding(data_dir, dataset, rw)
-
+```
+##### Generate  Embedding for a Specific Node or Edge
+```
 node1 = 35
 node2 = 40
+
 # Get Embedding for a node
 emb = rw.getNodeEmbedding(node1)
 print("Node Embedding", emb)
-#
+
 # Get Embedding for an edge
 emb = rw.getEdgeEmbedding(node1, node2)
 print("Edge Embedding", emb)
