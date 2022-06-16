@@ -37,18 +37,18 @@ windowSize = 3 # window size
 #### Choose One of the Following Graph Embedding Models
 ```
 # DeepWalk
-rw = ge.DeepWalk(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
+rw = ge.DeepWalk(inputGraph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
               windowSize=windowSize, lr = lr)
               
  ```
 ```
 # Node2Vec
-rw = ge.Node2vec(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
+rw = ge.Node2vec(inputGraph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
                windowSize=windowSize, lr=lr, p = 0.5, q = 0.8)
 ```
 ```
 # Struc2Vec
-rw = ge.Struc2Vec(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
+rw = ge.Struc2Vec(inputGraph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
               windowSize=windowSize, lr = lr)
 ```
               
