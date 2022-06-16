@@ -6,9 +6,9 @@ from deepWalk import DeepWalk
 from utils import saveEmbedding, loadGraph
 
 # Set Path to data
-dataset = "cora"
-dataset = "cora - Copy"
-data_dir = "..\cora"
+# dataset = "cora"
+dataset = "cora - Copy.cites"
+data_dir = "../data"
 
 
 # input graph

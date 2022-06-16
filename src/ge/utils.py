@@ -230,7 +230,7 @@ def loadGraph(data_dir, dataset):
     # Load Data
     print("Loading Data...")
     data_dir = os.path.expanduser(data_dir)
-    edgelist = pd.read_csv(os.path.join(data_dir, dataset + ".cites"), sep='\t', header=None, names=["target", "source"])
+    edgelist = pd.read_csv(os.path.join(data_dir, dataset), sep='\t', header=None, names=["target", "source"])
     return nx.from_pandas_edgelist(edgelist)
 
 # custom format warning with only a message

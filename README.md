@@ -3,33 +3,26 @@
 This module provides the services and implementation for various
 family of graph embedding algorithms.
 
-# Graph Embedding
-### Introduction
-This module provides the services and implementation for various
-family of graph embedding algorithms.
-
 ### Installation
 
-You can install the DGLL Graph Embedding version 1.0.1 from [PyPI](https://pypi.org/project/realpython-reader/):
+You can install the DGLL Graph Embedding version 1.0.0 from [PyPI](https://pypi.org/project/dgllge/) as:
 
-    pip install DGLL-GE
+    pip install dgllge
 
 ## How to utilize a code? (Tutorial)
 #### input graph
 ```
-# inputGraph = Your input graph goes here
-# For example,
-# Set Path to data
-dataset = "cora"
-dataset = "cora - Copy"
-data_dir = "../cora"
+# import module
+import ge
 
-# Load Data
-data_dir = os.path.expanduser(data_dir)
-edgelist = pd.read_csv(os.path.join(data_dir, dataset + ".cites"), sep='\t', header=None, names=["target", "source"])
 
-# input graph
-my_graph = nx.from_pandas_edgelist(edgelist)
+# Set Path to Data
+data_dir = "Your Path to Data"
+dataset = "File/Dataset Name"
+
+
+# Load a Graph
+inputGraph = ge.loadGraph(data_dir, dataset)
 ```
 
 #### Configurable Parameter for Graph Embedding
@@ -45,42 +38,42 @@ windowSize = 3 # window size
 ```
 # choose of the following Graph embedding algorithm
 # DeepWalk
-dw = DeepWalk(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
+rw = ge.DeepWalk(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
               windowSize=windowSize, lr = lr)
               
               
 # Node2Vec
-dw = Node2vec(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
+rw = ge.Node2vec(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
                windowSize=windowSize, lr=lr, p = 0.5, q = 0.8)
 
 # Struc2Vec
-dw = Struc2Vec(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
+rw = ge.Struc2Vec(my_graph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
               windowSize=windowSize, lr = lr)
               
 # Skip Gram model
-modelSkipGram = SkipGramModel(dw.totalNodes, dw.embedDim)
+modelSkipGram = ge.SkipGramModel(rw.totalNodes, rw.embedDim)
 
 # Choose whether want Node embedding or edge embedding
 # Learning Node Embedding
-model = dw.learnNodeEmbedding(modelSkipGram)
+model = rw.learnNodeEmbedding(modelSkipGram)
 
 
 # Learning Edge Embedding
-model = dw.learnEdgeEmbedding(model_skip_gram)
+model = rw.learnEdgeEmbedding(modelSkipGram)
 
 # Plot Embedding
-plot_2DEmbedding(dw)
+ge.plot_2DEmbedding(rw)
 
 # Save embedding to disk
-saveEmbedding(data_dir, dataset, dw)
+ge.saveEmbedding(data_dir, dataset, rw)
 
 node1 = 35
 node2 = 40
 # Get Embedding for a node
-emb = dw.getNodeEmbedding(node1)
+emb = rw.getNodeEmbedding(node1)
 print("Node Embedding", emb)
 #
 # Get Embedding for an edge
-emb = dw.getEdgeEmbedding(node1, node2)
+emb = rw.getEdgeEmbedding(node1, node2)
 print("Edge Embedding", emb)
 ```
