@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "dgllge"
 version = "1.0.0"
-description = "Graph Embedding Algorithms"
+description = "Graph Embedding Models"
 readme = "README.md"
 authors = [{ name = "Irfan Ullah", email = "irfan@khu.ac.kr" }]
 license = { file = "LICENSE" }

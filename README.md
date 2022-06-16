@@ -1,6 +1,6 @@
 # Graph Embedding
 ### Introduction
-This module provides the services and implementation for various graph embedding algorithms.
+This module provides the services and implementation for various graph embedding models.
 
 ## Getting Started
 ### Installation
@@ -78,7 +78,7 @@ emb = rw.getEdgeEmbedding(node1, node2)
 print("Edge Embedding", emb)
 ```
 
-<!-- LICENSE -->
+<!-- LICENSE.txt -->
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
@@ -93,6 +93,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## Links
 Project's GitHub Link: [@Graph-Embedding](https://github.com/sahibzada-irfanullah/Graph-Embedding)
 
-Project's PyPI Link: [@Graph-Embedding](https://pypi.org/project/dgllge/)
+Project's PyPI Link: [@dgllge](https://pypi.org/project/dgllge/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
