@@ -1,7 +1,6 @@
 # Graph Embedding
 ### Introduction
-This module provides the services and implementation for various
-family of graph embedding algorithms.
+This module provides the services and implementation for various graph embedding algorithms.
 
 ## Getting Started
 ### Installation
