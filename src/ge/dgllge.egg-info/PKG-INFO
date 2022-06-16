@@ -1,3 +1,18 @@
+Metadata-Version: 2.1
+Name: dgllge
+Version: 1.0.0
+Summary: Read the latest Real Python tutorials
+Home-page: https://github.com/sahibzada-irfanullah/Graph-Embedding
+Author: Irfan Ullah
+Author-email: Irfan Ullah <irfan@khu.ac.kr>
+Project-URL: Homepage, https://github.com/sahibzada-irfanullah/Graph-Embedding
+Keywords: graph embedding,embedding,ge
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.7
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Provides-Extra: dev
+
 # Graph Embedding
 ### Introduction
 This module provides the services and implementation for various
@@ -12,9 +27,9 @@ family of graph embedding algorithms.
 
 You can install the DGLL Graph Embedding version 1.0.0 from [PyPI](https://pypi.org/project/realpython-reader/):
 
-    pip install DGLLGe
+    pip install DGLLGraphEmbedding
 
-## How to utilize a code? (Tutorial)
+### How to utilize a code? (Tutorial)
 #### input graph
 ```
 # inputGraph = Your input graph goes here
