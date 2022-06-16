@@ -10,7 +10,7 @@ family of graph embedding algorithms.
 
 ### Installation
 
-You can install the DGLL Graph Embedding version 1.0.0 from [PyPI](https://pypi.org/project/realpython-reader/):
+You can install the DGLL Graph Embedding version 1.0.1 from [PyPI](https://pypi.org/project/realpython-reader/):
 
     pip install DGLL-GE
 

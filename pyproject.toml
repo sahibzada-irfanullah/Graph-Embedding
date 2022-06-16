@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dgllge"
-version = "1.0.0"
+version = "1.0.1"
 description = "Read the latest Real Python tutorials"
 readme = "README.md"
 authors = [{ name = "Irfan Ullah", email = "irfan@khu.ac.kr" }]
@@ -62,11 +62,11 @@ Homepage = "https://github.com/sahibzada-irfanullah/Graph-Embedding"
 ge = "ge.main:main"
 
 [tool.bumpver]
-current_version = "1.0.0"
+current_version = "1.0.1"
 version_pattern = "MAJOR.MINOR.PATCH"
 commit_message = "bump version {old_version} -> {new_version}"
-commit = true
-tag = true
+commit = false
+tag = false
 push = false
 
 [tool.bumpver.file_patterns]
@@ -82,7 +82,6 @@ push = false
 
 "README.md" = [
     "{version}",
-    "{pep440_version}",
 ]
 
 [tool.mypy]
