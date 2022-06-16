@@ -52,11 +52,11 @@ rw = ge.Struc2Vec(inputGraph, walkLength=walkLength, embedDim=embedDim, numbOfWa
               windowSize=windowSize, lr = lr)
 ```
               
-##### Skip Gram model
+#### Skip Gram model
 ```
 modelSkipGram = ge.SkipGramModel(rw.totalNodes, rw.embedDim)
 ```
-##### Want Node Embedding or Edge Embedding
+#### Want Node Embedding or Edge Embedding
 ```
 # Learning Node Embedding
 model = rw.learnNodeEmbedding(modelSkipGram)
@@ -69,7 +69,7 @@ model = rw.learnEdgeEmbedding(modelSkipGram)
 ```
 
 
-##### Plot Embedding
+#### Plot Embedding
 ```
 ge.plot_2DEmbedding(rw)
 ```
