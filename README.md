@@ -3,13 +3,14 @@
 This module provides the services and implementation for various
 family of graph embedding algorithms.
 
+## Getting Started
 ### Installation
 
 You can install the DGLL Graph Embedding version 1.0.0 from [PyPI](https://pypi.org/project/dgllge/) as:
 
     pip install dgllge
 
-## How to utilize a code? (Tutorial)
+## Usage and Tutorial
 #### input graph
 ```
 # import module
@@ -77,3 +78,24 @@ print("Node Embedding", emb)
 emb = rw.getEdgeEmbedding(node1, node2)
 print("Edge Embedding", emb)
 ```
+
+<!-- LICENSE -->
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- ACKNOWLEDGMENTS -->
+## Acknowledgments
+* [Data and Knowlege Engineering Lab (DKE)](http://dke.khu.ac.kr/)
+* [Distributed Graph Learning Library (DGLL)]()
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+## Links
+Project's GitHub Link: [@Graph-Embedding](https://github.com/sahibzada-irfanullah/Graph-Embedding)
+
+Project's PyPI Link: [@Graph-Embedding](https://pypi.org/project/dgllge/)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
