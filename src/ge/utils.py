@@ -227,6 +227,7 @@ def saveEmbedding(data_dir, dataset, dw):
 
 def loadGraph(data_dir, dataset):
     # Load Data
+    print("Loading Data...")
     data_dir = os.path.expanduser(data_dir)
     edgelist = pd.read_csv(os.path.join(data_dir, dataset + ".cites"), sep='\t', header=None, names=["target", "source"])
     return nx.from_pandas_edgelist(edgelist)

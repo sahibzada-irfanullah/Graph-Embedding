@@ -2,8 +2,6 @@ Metadata-Version: 2.1
 Name: dgllge
 Version: 1.0.0
 Summary: Read the latest Real Python tutorials
-Home-page: https://github.com/sahibzada-irfanullah/Graph-Embedding
-Author: Irfan Ullah
 Author-email: Real Python <info@realpython.com>
 Project-URL: Homepage, https://github.com/sahibzada-irfanullah/Graph-Embedding
 Keywords: graph embedding,embedding,ge
