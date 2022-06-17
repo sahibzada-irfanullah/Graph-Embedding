@@ -7,7 +7,7 @@ Author: Irfan Ullah
 Author-email: Irfan Ullah <irfan@khu.ac.kr>
 Project-URL: Homepage, https://github.com/sahibzada-irfanullah
 Project-URL: repository, https://github.com/sahibzada-irfanullah/Graph-Embedding
-Project-URL: documentation, https://github.com/sahibzada-irfanullah/Graph-Embedding
+Project-URL: documentation, https://github.com/sahibzada-irfanullah/Graph-Embedding/blob/main/README.md
 Keywords: graph embedding,embedding,ge
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Programming Language :: Python :: 3.7

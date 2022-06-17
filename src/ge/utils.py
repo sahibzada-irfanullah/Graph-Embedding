@@ -6,6 +6,7 @@ import os
 import networkx as nx
 import matplotlib.pyplot as plt
 import warnings
+warnings.filterwarnings("ignore")
 def chooseNeighbor(v, graphs, layers_alias, layers_accept, layer):
 
     v_list = graphs[layer][v]
@@ -215,22 +216,27 @@ def plot_2DEmbedding(dw):
 
 # Save embedding to disk
 def saveEmbedding(data_dir, dataset, dw):
+    idsFeaturesLabels = np.genfromtxt("{}{}.content".format(data_dir + "/", dataset), dtype=np.dtype(str))
     embCol = list()
     for i in range(dw.embedDim):
         embCol.append('c' + str(i))
+    embCol.append('class_label')
+    idsLabels = idsFeaturesLabels[:, [0, -1]]
     df = pd.DataFrame(columns = embCol,
-                      index = list(dw.graph.nodes())) # adding nodes as an index
-    for node in dw.graph.nodes():
+                      index = list(idsLabels[:,0])) # adding nodes as an index
+
+    for row in idsLabels:
         # Get embedding for a node
-        f = dw.getNodeEmbedding(node)
-        df.loc[node] = f
-        df.to_csv("{}{}.embedding".format(data_dir + "/", dataset), sep='\t', header=False)
+        f = dw.getNodeEmbedding(int(row[0])).tolist()
+        f.append(row[1])
+        df.loc[row[0]] = f
+    df.to_csv("{}{}.embedding".format(data_dir + "/", dataset), sep='\t', header=False)
 
 def loadGraph(data_dir, dataset):
     # Load Data
     print("Loading Data...")
     data_dir = os.path.expanduser(data_dir)
-    edgelist = pd.read_csv(os.path.join(data_dir, dataset), sep='\t', header=None, names=["target", "source"])
+    edgelist = pd.read_csv(os.path.join(data_dir, dataset + ".cites"), sep='\t', header=None, names=["target", "source"])
     return nx.from_pandas_edgelist(edgelist)
 
 # custom format warning with only a message

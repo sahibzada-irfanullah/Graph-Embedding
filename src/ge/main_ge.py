@@ -2,31 +2,32 @@
 import ge
 
 # Set Path to data
-dataset = "cora.cites"
+dataset = "cora"
 data_dir = "../data"
+
 # input graph
 myGraph = ge.loadGraph(data_dir, dataset)
 
-# Set Parameters (For fast completion we kept the parameters simple)
+# Set Parameters
 embedDim = 10 # embedding size
 numbOfWalksPerVertex = 2 # walks per vertex
-walkLength = 4 # walk lenght
+walkLength = 5 # walk lenght
 lr =0.25 # learning rate
 windowSize = 3 # window size
+
+# # Set Parameters
+# embedDim = 128 # embedding size
+# numbOfWalksPerVertex = 10 # walks per vertex
+# walkLength = 80 # walk lenght
+# lr =0.025 # learning rate
+# windowSize = 10 # window size
+
+
 
 
 # DeepWalk
 rw = ge.DeepWalk(myGraph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
-              windowSize=windowSize, lr = lr)
-
-# # Node2Vec
-# rw = ge.Node2vec(myGraph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
-#               windowSize=windowSize, lr=lr, p = 0.5, q = 0.8)
-# #
-# # Struc2Vec
-# rw = ge.Struc2Vec(myGraph, walkLength=walkLength, embedDim=embedDim, numbOfWalksPerVertex=numbOfWalksPerVertex, \
-#                windowSize=windowSize, lr = lr, stay_prob=0.3)
-
+                 windowSize=windowSize, lr = lr)
 
 # Skip Gram model
 model_skip_gram = ge.SkipGramModel(rw.totalNodes, rw.embedDim)
