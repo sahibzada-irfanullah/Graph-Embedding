@@ -9,10 +9,12 @@ src/dgllge.egg-info/dependency_links.txt
 src/dgllge.egg-info/entry_points.txt
 src/dgllge.egg-info/requires.txt
 src/dgllge.egg-info/top_level.txt
+src/ge/Classifiers.py
 src/ge/__init__.py
 src/ge/biasedRandomWalk.py
 src/ge/deepWalk.py
-src/ge/main.py
+src/ge/main_ge.py
+src/ge/main_trainClf.py
 src/ge/node2vec.py
 src/ge/randomWalkEmbedding.py
 src/ge/skipgram.py

@@ -24,7 +24,7 @@ class TrainingClassifiers:
         return y_pred_class
 
 
-    def apply_GradientBoosting(self, X_train, y_train, X_test):
+    def applyGradientBoosting(self, X_train, y_train, X_test):
         clf_gb = GradientBoostingClassifier()
         clf_gb.fit(X_train, y_train)
         y_pred_class = clf_gb.predict(X_test)
