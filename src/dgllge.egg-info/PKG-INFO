@@ -1,13 +1,13 @@
 Metadata-Version: 2.1
 Name: dgllge
-Version: 1.0.1
+Version: 1.0.2
 Summary: Graph Embedding Models
 Home-page: https://github.com/sahibzada-irfanullah/Graph-Embedding
 Author: Irfan Ullah
 Author-email: Irfan Ullah <irfan@khu.ac.kr>
 Project-URL: Homepage, https://github.com/sahibzada-irfanullah
 Project-URL: repository, https://github.com/sahibzada-irfanullah/Graph-Embedding
-Project-URL: documentation, https://realpython.com/pypi-publish-python-package/
+Project-URL: documentation, https://github.com/sahibzada-irfanullah/Graph-Embedding
 Keywords: graph embedding,embedding,ge
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Programming Language :: Python :: 3.7
@@ -22,7 +22,7 @@ This module provides the services and implementation for various graph embedding
 ## Getting Started
 ### Installation
 
-You can install the DGLL Graph Embedding version 1.0.1 from [PyPI](https://pypi.org/project/dgllge/) as:
+You can install the DGLL Graph Embedding version 1.0.2 from [PyPI](https://pypi.org/project/dgllge/) as:
 
     pip install dgllge
 
@@ -69,11 +69,11 @@ rw = ge.Struc2Vec(inputGraph, walkLength=walkLength, embedDim=embedDim, numbOfWa
               windowSize=windowSize, lr = lr)
 ```
               
-##### Skip Gram model
+#### Skip Gram model
 ```
 modelSkipGram = ge.SkipGramModel(rw.totalNodes, rw.embedDim)
 ```
-##### Want Node Embedding or Edge Embedding
+#### Want Node Embedding or Edge Embedding
 ```
 # Learning Node Embedding
 model = rw.learnNodeEmbedding(modelSkipGram)
@@ -86,16 +86,16 @@ model = rw.learnEdgeEmbedding(modelSkipGram)
 ```
 
 
-##### Plot Embedding
+#### Plot Embedding
 ```
 ge.plot_2DEmbedding(rw)
 ```
 
-##### Save Embedding to Disk
+#### Save Embedding to Disk
 ```
 ge.saveEmbedding(data_dir, dataset, rw)
 ```
-##### Generate  Embedding for a Specific Node or Edge
+#### Generate  Embedding for a Specific Node or Edge
 ```
 node1 = 35
 node2 = 40

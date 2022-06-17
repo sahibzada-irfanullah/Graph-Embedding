@@ -5,7 +5,7 @@ This module provides the services and implementation for various graph embedding
 ## Getting Started
 ### Installation
 
-You can install the DGLL Graph Embedding version 1.0.1 from [PyPI](https://pypi.org/project/dgllge/) as:
+You can install the DGLL Graph Embedding version 1.0.2 from [PyPI](https://pypi.org/project/dgllge/) as:
 
     pip install dgllge
 
