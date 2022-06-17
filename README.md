@@ -101,7 +101,7 @@ import numpy as np
 import scipy.sparse as sp
 ```
 
-####Load Embedding
+#### Load Embedding
 ```
 idsEmbeddingClsLabels = np.genfromtxt("cora.embedding", dtype=np.dtype(str))
 ```
@@ -121,7 +121,7 @@ y = tr.labelEnocder(labels)
 X_train, X_test, y_train, y_test = tr.prepareTrainTestData(embedding, labels, 0.33)
 ```
 
-#### Choose one of the following classifier for training train a classifier
+#### Choose one of the following classifier for training a classifier
 
 ```
 y_pred = tr.applyDecisionTree(X_train.toarray(), y_train, X_test.toarray())
@@ -139,6 +139,7 @@ y_pred = tr.apply_GradientBoosting(X_train.toarray(), y_train, X_test.toarray())
 ```
 y_pred = tr.applyMLP(X_train.toarray(), y_train, X_test.toarray())
 ```
+#### Get Accuracy
 ```
 print("Accuracy:", tr.accuracy(y_test, y_pred))
 ```
