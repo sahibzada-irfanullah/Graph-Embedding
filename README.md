@@ -92,7 +92,7 @@ emb = rw.getEdgeEmbedding(node1, node2)
 print("Edge Embedding", emb)
 ```
 
-#### Utilize embedding for training classification models/classifiers
+### Utilize embedding for training classification models/classifiers
 
 ```
 # import modules
