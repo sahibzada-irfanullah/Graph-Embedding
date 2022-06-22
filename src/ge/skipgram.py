@@ -8,12 +8,19 @@ class SkipGramModel(torch.nn.Module):
 
     # Layers for a skipgram model
     def layers(self, totalNodes, embedDim):
-        self.W1  = nn.Parameter(torch.rand((totalNodes, embedDim), requires_grad=True))
-        self.W2 = nn.Parameter(torch.rand((embedDim, totalNodes), requires_grad=True))
+        if torch.cuda.is_available():
+            self.W1  = nn.Parameter(torch.rand((totalNodes, embedDim), requires_grad=True)).to("cuda")
+            self.W2 = nn.Parameter(torch.rand((embedDim, totalNodes), requires_grad=True)).to("cuda")
+        else:
+            self.W1  = nn.Parameter(torch.rand((totalNodes, embedDim), requires_grad=True))
+            self.W2 = nn.Parameter(torch.rand((embedDim, totalNodes), requires_grad=True))
 
     # Training skipgram model
     def forward(self, features):
-        hidden = torch.matmul(features, self.W1)
-        embed = torch.matmul(hidden, self.W2)
-        # Get embedding
-        return embed
+        if torch.cuda.is_available():
+            one_hot = features.to("cuda")
+            hidden = torch.matmul(one_hot, self.W1).to("cuda")
+        else:
+            hidden = torch.matmul(features, self.W1)
+        out = torch.matmul(hidden, self.W2)
+        return out
