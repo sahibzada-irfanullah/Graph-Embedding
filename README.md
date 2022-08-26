@@ -102,13 +102,11 @@ features, labels = loadEmbedding(your_data_set_name.embedding, dtype=np.dtype(st
 
 #### Prepare Train test data
 ```
-X_train, X_test, y_train, y_test = tr.prepareTrainTestData(features, labels, test_size=0.33)
+X_train, X_test, y_train, y_test = ge.prepareTrainTestData(features, labels, test_size=0.33)
 ```
 #### Train Classifiers
 ```
-tr = ge.TrainingClassifiers()
-y = tr.labelEnocder(labels)
-y_pred = tr.classify(X_train, y_train, X_test)
+y_pred = ge.classify(X_train, y_train, X_test, classifier = "MLP")
 ```
 #### Get Accuracy
 ```
