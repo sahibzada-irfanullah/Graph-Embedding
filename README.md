@@ -110,7 +110,7 @@ y_pred = ge.classify(X_train, y_train, X_test, classifier = "MLP")
 ```
 #### Get Evaluation Metrics
 ```
-print(tr.evaluation_metrics(y_test, y_pred))
+print(ge.evaluation_metrics(y_test, y_pred))
 ```
 <!-- LICENSE.txt -->
 ## License
