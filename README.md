@@ -97,19 +97,17 @@ import scipy.sparse as sp
 
 #### Load Embedding
 ```
-idsEmbeddingClsLabels = loadEmbedding(your_data_set_name.embedding, dtype=np.dtype(str))
+embedding, labels = loadEmbedding(your_data_set_name.embedding, dtype=np.dtype(str))
 ```
 
-
-tr = ge.TrainingClassifiers()
-y = tr.labelEnocder(labels)
-```
 #### Prepare Train test data
 ```
-X_train, X_test, y_train, y_test = tr.prepareTrainTestData(embedding, labels, 0.33)
+X_train, X_test, y_train, y_test = tr.prepareTrainTestData(embedding, labels, test_size=0.33)
 ```
 #### Train Classifiers
 ```
+tr = ge.TrainingClassifiers()
+y = tr.labelEnocder(labels)
 y_pred = tr.classify(X_train, y_train, X_test)
 ```
 #### Get Accuracy
