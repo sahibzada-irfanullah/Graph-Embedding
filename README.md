@@ -97,12 +97,12 @@ import scipy.sparse as sp
 
 #### Load Embedding
 ```
-embedding, labels = loadEmbedding(your_data_set_name.embedding, dtype=np.dtype(str))
+features, labels = loadEmbedding(your_data_set_name.embedding, dtype=np.dtype(str))
 ```
 
 #### Prepare Train test data
 ```
-X_train, X_test, y_train, y_test = tr.prepareTrainTestData(embedding, labels, test_size=0.33)
+X_train, X_test, y_train, y_test = tr.prepareTrainTestData(features, labels, test_size=0.33)
 ```
 #### Train Classifiers
 ```
