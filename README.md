@@ -108,7 +108,7 @@ X_train, X_test, y_train, y_test = ge.prepareTrainTestData(features, labels, tes
 ```
 y_pred = ge.classify(X_train, y_train, X_test, classifier = "MLP")
 ```
-#### Get Accuracy
+#### Get Evaluation Metrics
 ```
 print(tr.evaluation_metrics(y_test, y_pred))
 ```
