@@ -1,4 +1,4 @@
-# Graph Embedding
+# Graph Embedding (GE) Module
 ### Introduction
 This module provides the services and implementation for various graph embedding models.
 
